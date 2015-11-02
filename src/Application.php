@@ -5,7 +5,7 @@ use samson\activerecord\dbQuery;
 use samson\activerecord\dbRelation;
 use samson\cms\CMSNavMaterial;
 use samson\pager\Pager;
-use samson\cms\Material;
+use samsonphp\event\Event;
 
 /**
  * SamsonCMS generic material application.
@@ -79,7 +79,7 @@ class Application extends \samsoncms\Application
     public function __new($navigation = null)
     {
         // Create new entity
-        $entity = new \samson\activerecord\material();
+        $entity = new \samson\activerecord\material(true);
         $entity->Active = 1;
         $entity->Created = date('Y-m-d H:m:s');
 
@@ -89,6 +89,19 @@ class Application extends \samsoncms\Application
 
         // Persist
         $entity->save();
+
+        // Set name for created material
+        $entity->Name = t($this->name, true).' №'.$entity->id;
+        $entity->Url = utf8_translit($entity->Name);
+        // Check unique url for material
+        if (dbQuery('material')->cond('Url', utf8_translit($entity->Name))->first()) {
+            $entity->Url = md5(utf8_translit($entity->Name));
+        }
+
+        // Persist
+        $entity->save();
+
+        Event::fire('samsoncms.app.material.new', array(& $entity));
 
         // Set navigation relation
         if (isset($navigation)) {
