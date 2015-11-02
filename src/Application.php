@@ -79,7 +79,7 @@ class Application extends \samsoncms\Application
     public function __new($navigation = null)
     {
         // Create new entity
-        $entity = new \samson\activerecord\material(true);
+        $entity = new \samson\activerecord\material();
         $entity->Active = 1;
         $entity->Created = date('Y-m-d H:m:s');
 
