@@ -179,7 +179,7 @@ class Main extends \samsoncms\form\tab\Entity
         // Add generic material entity fields
         $this->fields = array(
             new Generic('Name', t('Название', true), 0),
-            new Generic('Url', t('Url', true), 0),
+            new Generic('Url', t('Url', true), 12),
         );
 
         // Call parent constructor to define all class fields

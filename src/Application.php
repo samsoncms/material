@@ -55,6 +55,10 @@ class Application extends \samsoncms\Application
         if ($object instanceof \samson\activerecord\material) {
             if ($param == 'Name' && $object->Url == '') {
                 $object->Url = utf8_translit($object->Name);
+            } elseif ($param == 'Url') {
+                if (dbQuery('material')->cond('Url', $object->Url)->first($material)) {
+                    $response['urlError'] = '<a target="_blank" href="'.url()->build('material/form/'.$material->id).'">'.t('Материал', true).'</a> '.t('с таким параметром уже существует', true);
+                }
             }
         }
     }
