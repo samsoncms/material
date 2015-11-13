@@ -47,6 +47,12 @@ class Form extends \samsoncms\form\Form
         // Set locales in the new order
         \samson\core\SamsonLocale::$locales = $localArray;
 
+
+        // TODO This is fix loading SEO module
+        // Because seo module used this class, and for checking class_exists function this class have to be exists
+        // And we have to call it this but when cms and app will be one single application please remove this line
+        new \samsoncms\app\material\form\tab\LocaleTab($renderer, $query, $entity);
+
         // Fill generic tabs
         $this->tabs = array(
             new Main($renderer, $query, $entity),
