@@ -108,7 +108,7 @@ class Main extends \samsoncms\form\tab\Entity
                             // Create input field grouped by field identifier
                             $this->additionalFields[] = new Generic(
                                 $field->Name,
-                                isset($field->Description{0}) ? $field->Description : $field->Name,
+                                isset($field->Description{0}) ? t($field->Description, true) : t($field->Name, true),
                                 $field->Type
                             );
 
