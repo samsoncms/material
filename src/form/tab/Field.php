@@ -25,6 +25,7 @@ class Field extends Generic
     /** @inheritdoc */
     public function __construct(RenderInterface $renderer, QueryInterface $query, Record $entity)
     {
+        $this->name = t($this->name, true);
         $this->show = false;
         $entity = dbQuery('\samson\cms\CMSMaterial')
             ->cond('MaterialID', $entity->id)
