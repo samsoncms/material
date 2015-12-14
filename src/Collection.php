@@ -43,7 +43,7 @@ class Collection extends \samsoncms\MetaCollection
     {
         // Cut off related and table materials
         $query
-            ->cond('parent_id', 0)
+            ->cond('parent_id', null)
             ->order_by('Modyfied', 'DESC');
     }
 
