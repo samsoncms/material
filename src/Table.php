@@ -109,7 +109,7 @@ class Table extends \samson\cms\table\Table
 
         // Create DB query object
         $this->query = dbQuery('\samson\activerecord\material')
-            ->cond('parent_id', 0)
+            ->cond('parent_id', NULL)
             ->cond('Draft', 0)
             ->cond('Active', 1)
             ->own_order_by('Modyfied', 'DESC')
@@ -149,7 +149,7 @@ class Table extends \samson\cms\table\Table
         $this->query = dbQuery('\samson\cms\material')
             ->join('user')
             ->join('structurematerial')
-            ->join('samson\cms\Navigation');
+            ->join('structure');
 
         if (sizeof($ids)) {
             $this->query->id($ids);
