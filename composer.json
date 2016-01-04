@@ -15,7 +15,9 @@
     "samsonos/cms_input_bool": "*",
     "samsonos/cms_input_url": "*",
     "samsonos/js_translit":"*",
-    "samsonos/js_fixedheader":"*"
+    "samsonos/js_fixedheader":"*",
+    "samsonos/cms_api":"*",
+    "samsonos/cms_table":"*"
   },
   "require-dev": {
     "behat/behat": "3.*@stable",
