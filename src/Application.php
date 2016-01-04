@@ -215,7 +215,7 @@ class Application extends \samsoncms\Application
         }
 
         return array_merge(
-            array('status' => 1),
+            array('status' => 1, 'rowsCount' => $collection->getSize()),
             $collection
                 ->search($search)
                 ->fill()

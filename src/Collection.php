@@ -72,6 +72,15 @@ class Collection extends \samsoncms\MetaCollection
     }
     
     /**
+     * Get collection rows count
+     * @return mixed
+     */
+    public function getSize()
+    {
+        return $this->pager->rows_count;
+    }
+    
+    /**
      * Convert collection to string
      * @return array
      */
