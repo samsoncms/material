@@ -7,7 +7,6 @@
  */
 namespace samsoncms\app\material;
 
-use samsoncms\api\Uchastnik;
 use samsoncms\app\material\field\Navigation;
 use samsoncms\app\material\field\User;
 use samsonframework\orm\QueryInterface;
