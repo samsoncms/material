@@ -120,7 +120,7 @@ class Application extends \samsoncms\Application
         }
 
         // Go to correct form URL
-        url()->redirect($this->id . '/form/' . $entity->id);
+        header('Location: '.url()->build($this->id . '/form/' . $entity->id));
     }
 
     /**
