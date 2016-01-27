@@ -51,6 +51,7 @@ class Dictionary implements IDictionary
                 "Показывать" => "Show",
                 "Последнее изменение" => "Last changes",
                 "Список" => "List",
+                "список" => "list",
                 "Новый" => "New",
                 "Поисковый запрос" => "Search query",
                 "К списку" => "To list",
