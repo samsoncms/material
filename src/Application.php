@@ -22,10 +22,10 @@ class Application extends \samsoncms\Application
     const VIEW_TABLE_NAME = 'collection';
 
     /** Application name */
-    public $name = 'Материалы';
+    public $name = 'Материал';
 
     /** Application description */
-    public $description = 'Материалы';
+    public $description = 'Материал';
 
     /** Identifier */
     protected $id = 'material';
