@@ -127,7 +127,7 @@ class Application extends \samsoncms\Application
      * Delete structure from entity
      * @param int $navigation Parent navigation identifier
      */
-    public function __removenav($materialId = null, $navigation = null)
+    public function __async_removenav($materialId = null, $navigation = null)
     {
         $structureMaterials = dbQuery('structurematerial')->cond('MaterialID', $materialId)->cond('StructureID', $navigation)->first();
         $structureMaterials->delete();
@@ -137,7 +137,7 @@ class Application extends \samsoncms\Application
      * Add new structure to entity
      * @param int $navigation Parent navigation identifier
      */
-    public function __addnav($materialId = null, $navigation = null)
+    public function __async_addnav($materialId = null, $navigation = null)
     {
         // Save record
         $sm = new CMSNavMaterial(false);
