@@ -30,7 +30,7 @@ class FieldLocalized extends Generic
     {
         $this->locale = $locale;
 
-        if ($locale != 'NULL') {
+        if ($locale !== null) {
             $this->id .= '-'.$this->locale;
             $this->name = $this->locale;
         } else {

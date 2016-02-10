@@ -37,7 +37,7 @@ class MaterialFieldLocalized extends Generic
      * @param CMSMaterialField $materialField
      * @param string $locale
      */
-    public function __construct(RenderInterface $renderer, QueryInterface $query, Record $entity, CMSMaterialField $materialField, $locale = 'NULL')
+    public function __construct(RenderInterface $renderer, QueryInterface $query, Record $entity, CMSMaterialField $materialField, $locale = null)
     {
         // Get type of filed
         $field = dbQuery('field')->cond('FieldID', $materialField->FieldID)->first();
