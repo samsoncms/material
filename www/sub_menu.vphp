@@ -1,12 +1,14 @@
 <li class="template-sub-menu-search">
-    <input type="text"
-           id="search"
-           controller="<?php module_url('collection') ?>"
-           placeholder="<?php t('Поисковый запрос')?>..."
-           value="<?php iv('search')?>"
-           name="template-search"
-        >
-</li><li class="<?php print(url()->method == '' ? 'active' : '')?>">
+	<input type="text"
+		   id="search"
+		   controller="<?php module_url('collection') ?>"
+		   url="<?php module_url()?>"
+		   placeholder="<?php t('Поисковый запрос')?>..."
+		   value="<?php iv('search');?>"
+		   name="template-search"
+		>
+</li>
+<li class="<?php print(url()->method == '' ? 'active' : '')?>">
 	<a href="<?php module_url()?>">
 		<i style="padding-right: 13px;" class="icon2 icon2-list"></i><?php v('appName') ?> <?php t('список')?>
 	</a>

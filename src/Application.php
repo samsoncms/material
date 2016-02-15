@@ -7,6 +7,8 @@ use samson\cms\CMSNavMaterial;
 use samson\pager\Pager;
 use samsonframework\orm\Relation;
 use samsonphp\event\Event;
+use samsonframework\orm\Relation;
+use samsonphp\event\Event;
 
 /**
  * SamsonCMS generic material application.
@@ -195,10 +197,21 @@ class Application extends \samsoncms\Application
             unset($_GET['pagerSize']);
         }
 
+        // Save search filter
+        if (isset($_GET['search'])) {
+
+            $_SESSION['search'] = $_GET['search'];
+
+            $search = $_GET['search'];
+
+            unset($_GET['search']);
+        }
+
         // Set filtration info
         $navigationId = isset($navigationId) ? $navigationId : '0';
         $search = !empty($search) ? $search : 0;
         $page = isset($page) ? $page : 1;
+
 
         // Create pager for material collection
         $pager = new Pager(
