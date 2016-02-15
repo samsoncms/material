@@ -2,6 +2,7 @@
 
     <?php iv('content') ?>
 
+    <?php if ($showSelect): ?>
     <div class="template-form-input-group select-structure-wrapper">
         <div class="form-field-title select-structure-title">
             <span>
@@ -12,4 +13,5 @@
             <?php iv('parentSelect') ?>
         </select>
     </div>
+    <?php endif; ?>
 </div>

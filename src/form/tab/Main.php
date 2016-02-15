@@ -47,6 +47,17 @@ class Main extends \samsoncms\form\tab\Entity
             ->cond('Active', 1)
             ->fields('StructureID', $structureIDs)) {
 
+            // Get only structure which not material table
+            $newStructure = null;
+            if (
+                $this->query->className('structure')
+                    ->cond('StructureID', $structureIDs)
+                    ->cond('type', array('2'), Relation::NOT_EQUAL)
+                    ->fields('StructureID', $newStructure)
+            ) {
+                $structureIDs = $newStructure;
+            }
+
             /** @var \samsonframework\orm\Record[] $structureFields Get structure-fields records for this entity with fields data */
             $structureFields = array();
             if($this->query->className('structurefield')
@@ -93,6 +104,21 @@ class Main extends \samsoncms\form\tab\Entity
                                 $mf->save();
 
                             }
+
+                            // Skip filed which have to be hide
+                            if (!$field->showInForm) {
+                                continue;
+                            }
+
+                            // Create input field grouped by field identifier
+                            $this->additionalFields[] = new Generic(
+                                $field->Name,
+                                isset($field->Description{0}) ? t($field->Description, true) : t($field->Name, true),
+                                $field->Type
+                            );
+
+                            // Save mf
+                            $this->materialFields[] = $mf;
 
                             // It is localized fields
                         } else {
@@ -158,7 +184,7 @@ class Main extends \samsoncms\form\tab\Entity
         // Add generic material entity fields
         $this->fields = array(
             new Generic('Name', t('Название', true), 0),
-            new Generic('Url', t('Url', true), 0),
+            new Generic('Url', t('Url', true), 12),
         );
 
         // Call parent constructor to define all class fields
@@ -167,7 +193,6 @@ class Main extends \samsoncms\form\tab\Entity
 
     public function activeButtonRender()
     {
-        $this->loadAdditionalFields($this->entity->id);
         $view = '';
         $field = new Generic('Published', '', 11);
         $view = '<div class="template-form-input-group activeButton">' . $field->renderHeader($this->renderer);
@@ -231,6 +256,13 @@ class Main extends \samsoncms\form\tab\Entity
         $nameSelectStructureField = t('Теги структуры',true);
 
         // Render tab content
-        return $this->renderer->view($this->contentView)->nameSelectStructureField($nameSelectStructureField)->parentSelect($parentSelect)->content($view)->matId($this->entity->id)->output();
+        return $this->renderer
+            ->view($this->contentView)
+            ->nameSelectStructureField($nameSelectStructureField)
+            ->parentSelect($parentSelect)
+            ->content($view)
+            ->matId($this->entity->id)
+            ->showSelect(m()->id === 'material')
+            ->output();
     }
 }

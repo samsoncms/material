@@ -43,7 +43,7 @@ class Collection extends \samsoncms\MetaCollection
     {
         // Cut off related and table materials
         $query
-            ->cond('parent_id', 0)
+            ->cond('parent_id', null)
             ->order_by('Modyfied', 'DESC');
     }
 
@@ -71,6 +71,15 @@ class Collection extends \samsoncms\MetaCollection
     }
     
     /**
+     * Get collection rows count
+     * @return mixed
+     */
+    public function getSize()
+    {
+        return $this->pager->rows_count;
+    }
+    
+    /**
      * Convert collection to string
      * @return array
      */
@@ -82,20 +91,27 @@ class Collection extends \samsoncms\MetaCollection
         // If collection not empty
         if (sizeof($this->collection)) {
 
+            $columns = array();
+
+            // TODO: This is awfull
+            // Get entity manager
+            $manager = $this->entityName;
+            $manager = $manager::MANAGER;
+            // If field name exists in this material then store it
+            foreach ($this->fields as $field) {
+                if (isset($manager::$fieldRealNames[$field->name])) {
+                    $columns[] = $manager::$fieldRealNames[$field->name];
+                } else {
+                    $columns[] = $field->name;
+                }
+            }
+
             // Iterate all rows
             foreach ($this->collection as &$item) {
-
                 // Iterate all fields
-                foreach ($item as $k => $v) {
-
-                    // If field name exists in this material then store it
-                    foreach ($this->fields as $field) {
-                        if ($field->name == $k) {
-
-                            // Save item
-                            $result[$counter][$k] = $v;
-                            break;
-                        }
+                foreach ($columns as $k) {
+                    if (isset($item->$k)) {
+                        $result[$counter][$k] = $item->$k;
                     }
                 }
                 $counter++;

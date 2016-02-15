@@ -8,7 +8,7 @@ SamsonCMS_InputINIT_SELECT_STRUCTURE = function(select) {
     s('._sjsselect_dropdown li', select.prev()).each(function(li) {
         if (!li.hasClass('selectify-loaded')) {
             li.click(function(li) {
-                s.ajax(select.a('data-href-add') + '/' + li.a('value'), function(response) {
+                s.ajax(select.a('data-href-add') + li.a('value') + '/', function(response) {
                     initLinks(select.prev());
                     updateSelect();
                 });
@@ -21,7 +21,7 @@ SamsonCMS_InputINIT_SELECT_STRUCTURE = function(select) {
         s('._sjsselect ._sjsselect_delete', block).each(function(link) {
             if (!link.hasClass('selectify-loaded')) {
                 link.click(function(link) {
-                    s.ajax(select.a('data-href-remove') + '/' + link.a('value'), function(response) {
+                    s.ajax(select.a('data-href-remove') + link.a('value') + '/', function(response) {
                         time = Date.now();
                         updateSelect();
                     });

@@ -51,6 +51,7 @@ class Dictionary implements IDictionary
                 "Показывать" => "Show",
                 "Последнее изменение" => "Last changes",
                 "Список" => "List",
+                "список" => "list",
                 "Новый" => "New",
                 "Поисковый запрос" => "Search query",
                 "К списку" => "To list",
@@ -78,7 +79,8 @@ class Dictionary implements IDictionary
                 "Форма" => "Edit form",
                 "Элементов на странице" => "Items per page",
                 "Удалить" => "Delete",
-                "Копировать" => "Copy"
+                "Копировать" => "Copy",
+                "Дополнительные поля" => 'Additional fields'
             ),
             "ru" => array(
                 "Материалы" => "",
@@ -183,6 +185,7 @@ class Dictionary implements IDictionary
                 "Перейти к материалам cайта" => "Перейти до матеріалів сайту",
                 "Перейти к материалам" => "Перейти до матеріалів",
                 "от" => "від",
+                "Дополнительные поля" => 'Додаткові поля'
             ),
         );
     }

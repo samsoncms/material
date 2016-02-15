@@ -5,7 +5,8 @@ use samson\activerecord\dbQuery;
 use samson\activerecord\dbRelation;
 use samson\cms\CMSNavMaterial;
 use samson\pager\Pager;
-use samson\cms\Material;
+use samsonframework\orm\Relation;
+use samsonphp\event\Event;
 use samsonframework\orm\Relation;
 use samsonphp\event\Event;
 
@@ -23,10 +24,10 @@ class Application extends \samsoncms\Application
     const VIEW_TABLE_NAME = 'collection';
 
     /** Application name */
-    public $name = 'Материалы';
+    public $name = 'Материал';
 
     /** Application description */
-    public $description = 'Материалы';
+    public $description = 'Материал';
 
     /** Identifier */
     protected $id = 'material';
@@ -108,6 +109,7 @@ class Application extends \samsoncms\Application
         // Persist
         $entity->save();
 
+		
         Event::fire('samsoncms.app.material.new', array(& $entity));
 
         // Set navigation relation
@@ -121,14 +123,14 @@ class Application extends \samsoncms\Application
         }
 
         // Go to correct form URL
-        url()->redirect($this->id . '/form/' . $entity->id);
+        url()->redirect('cms/' . $this->id . '/form/' . $entity->id);
     }
 
     /**
      * Delete structure from entity
      * @param int $navigation Parent navigation identifier
      */
-    public function __removenav($materialId = null, $navigation = null)
+    public function __async_removenav($materialId = null, $navigation = null)
     {
         $structureMaterials = dbQuery('structurematerial')->cond('MaterialID', $materialId)->cond('StructureID', $navigation)->first();
         $structureMaterials->delete();
@@ -138,7 +140,7 @@ class Application extends \samsoncms\Application
      * Add new structure to entity
      * @param int $navigation Parent navigation identifier
      */
-    public function __addnav($materialId = null, $navigation = null)
+    public function __async_addnav($materialId = null, $navigation = null)
     {
         // Save record
         $sm = new CMSNavMaterial(false);
@@ -227,10 +229,9 @@ class Application extends \samsoncms\Application
         }
 
         return array_merge(
-            array('status' => 1),
+            array('status' => 1, 'rowsCount' => $collection->fill()->getSize()),
             $collection
                 ->search($search)
-                ->fill()
                 ->toView(self::VIEW_TABLE_NAME . '_')
         );
     }
@@ -432,6 +433,7 @@ class Application extends \samsoncms\Application
             // Render main template
             $mainPageHTML = $this->view('main/index')->set('rows', $rowsHTML)->output();
         }
+
         // Return material block HTML on main page
         return $mainPageHTML;
     }
