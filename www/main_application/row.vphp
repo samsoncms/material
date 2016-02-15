@@ -1,0 +1,9 @@
+<div class="row">
+	<div class="time">
+		<?=$item->Modyfied?>
+    </div><div class="item">
+        <a href="<?php url_base($moduleId, 'form', $item->id)?>"><?=$item->Name?></a>
+	</div><div class="user">
+		<span class="creator"><?=$user->f_name?> <?=$user->t_name?></span>
+	</div>
+</div>

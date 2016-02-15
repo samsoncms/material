@@ -52,6 +52,7 @@ class LocaleTab extends Main
         $view = '';
         foreach ($this->additionalFields as $fieldID => $additionalField) {
 
+
             // If this field is empty go further
             if ( empty($additionalField) ) {
                 continue;
