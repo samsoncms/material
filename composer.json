@@ -1,39 +1,28 @@
 {
-  "name": "samsoncms/material",
-  "description": "SamsonCMS material application",
-  "author": "Vitaly Iegorov <egorov@samsonos.com>",
-  "require": {
-    "samsoncms/application": "*",
-    "samsonos/cms_input": "*",
-    "samsonos/cms_input_text": "*",
-    "samsonos/cms_input_date": "*",
-    "samsonos/cms_input_datetime": "*",
-    "samsonos/cms_input_select": "*",
-    "samsonos/cms_input_upload": "*",
-    "samsonos/cms_input_wysiwyg": "*",
-    "samsonos/cms_input_number": "*",
-    "samsonos/cms_input_bool": "*",
-    "samsonos/cms_input_url": "*",
-    "samsonos/js_translit":"*",
-    "samsonos/js_fixedheader":"*",
-    "samsonos/cms_api":"*",
-    "samsonos/cms_table":"*"
-  },
-  "require-dev": {
-    "behat/behat": "3.*@stable",
-    "behat/mink": "1.6.*@stable",
-    "behat/mink-extension": "@stable",
-    "behat/mink-selenium2-driver": "@stable"
-  },
-  "minimum-stability": "dev",
-  "license": "Open Software License (OSL) v 3.0",
-  "homepage": "http://samsonos.com/",
-  "autoload": {
-    "classmap": ["src/"],
-    "psr-4": {
-      "samsoncms\\app\\material\\": "src/"
+  "name": "samsoncms/cms",
+  "description": "SamsonCMS web-application",
+  "authors": [
+    {
+      "name": "Vitaly Iegorov",
+      "email": "egorov@samsonos.com"
     }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "samsoncms/material":"*",
+    "samsoncms/user":"*",
+    "samsoncms/seo":"*",
+    "samsonos/cms_app_navigation":"*",
+    "samsonos/cms_app_field":"*",
+    "samsonos/cms_app_gallery":"*",
+    "samsonos/cms_app_relatedmaterial":"*",
+    "samsonos/cms_app_materialtable":"*",
+    "samsonos/cms_input_material":"*",
+    "samsoncms/signin":"*",
+    "samsoncms/security":"*"
   },
+  "license": "Open Software License (OSL) v 3.0",
+  "homepage": "http://samsoncms.com/",
   "config":{
     "github-protocols":["https"]
   }

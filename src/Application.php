@@ -107,6 +107,7 @@ class Application extends \samsoncms\Application
         // Persist
         $entity->save();
 
+		
         Event::fire('samsoncms.app.material.new', array(& $entity));
 
         // Set navigation relation
@@ -419,6 +420,7 @@ class Application extends \samsoncms\Application
             // Render main template
             $mainPageHTML = $this->view('main/index')->set('rows', $rowsHTML)->output();
         }
+
         // Return material block HTML on main page
         return $mainPageHTML;
     }

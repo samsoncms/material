@@ -105,6 +105,11 @@ class Main extends \samsoncms\form\tab\Entity
 
                             }
 
+                            // Skip filed which have to be hide
+                            if (!$field->showInForm) {
+                                continue;
+                            }
+
                             // Create input field grouped by field identifier
                             $this->additionalFields[] = new Generic(
                                 $field->Name,
@@ -251,6 +256,13 @@ class Main extends \samsoncms\form\tab\Entity
         $nameSelectStructureField = t('Теги структуры',true);
 
         // Render tab content
-        return $this->renderer->view($this->contentView)->nameSelectStructureField($nameSelectStructureField)->parentSelect($parentSelect)->content($view)->matId($this->entity->id)->output();
+        return $this->renderer
+            ->view($this->contentView)
+            ->nameSelectStructureField($nameSelectStructureField)
+            ->parentSelect($parentSelect)
+            ->content($view)
+            ->matId($this->entity->id)
+            ->showSelect(m()->id === 'material')
+            ->output();
     }
 }
