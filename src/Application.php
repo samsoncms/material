@@ -6,6 +6,8 @@ use samson\activerecord\dbRelation;
 use samson\cms\CMSNavMaterial;
 use samson\pager\Pager;
 use samson\cms\Material;
+use samsonframework\orm\Relation;
+use samsonphp\event\Event;
 
 /**
  * SamsonCMS generic material application.
@@ -55,6 +57,11 @@ class Application extends \samsoncms\Application
         if ($object instanceof \samson\activerecord\material) {
             if ($param == 'Name' && $object->Url == '') {
                 $object->Url = utf8_translit($object->Name);
+            } elseif ($param == 'Url') {
+                if (dbQuery('material')->cond('Url', $object->Url)->cond('MaterialID', $object->MaterialID, Relation::NOT_EQUAL)->first($material)) {
+                    $object->Url = $previousValue;
+                    $response['urlError'] = '<a target="_blank" href="'.url()->build($this->id.'/form/'.$material->id).'">'.t('Материал', true).'</a> '.t('с таким параметром уже существует', true);
+                }
             }
         }
     }
@@ -89,6 +96,19 @@ class Application extends \samsoncms\Application
 
         // Persist
         $entity->save();
+
+        // Set name for created material
+        $entity->Name = t($this->name, true).' №'.$entity->id;
+        $entity->Url = utf8_translit($entity->Name);
+        // Check unique url for material
+        if (dbQuery('material')->cond('Url', utf8_translit($entity->Name))->first()) {
+            $entity->Url = md5(utf8_translit($entity->Name));
+        }
+
+        // Persist
+        $entity->save();
+
+        Event::fire('samsoncms.app.material.new', array(& $entity));
 
         // Set navigation relation
         if (isset($navigation)) {
@@ -175,10 +195,21 @@ class Application extends \samsoncms\Application
             unset($_GET['pagerSize']);
         }
 
+        // Save search filter
+        if (isset($_GET['search'])) {
+
+            $_SESSION['search'] = $_GET['search'];
+
+            $search = $_GET['search'];
+
+            unset($_GET['search']);
+        }
+
         // Set filtration info
         $navigationId = isset($navigationId) ? $navigationId : '0';
         $search = !empty($search) ? $search : 0;
         $page = isset($page) ? $page : 1;
+
 
         // Create pager for material collection
         $pager = new Pager(
