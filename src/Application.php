@@ -7,8 +7,6 @@ use samson\cms\CMSNavMaterial;
 use samson\pager\Pager;
 use samsonframework\orm\Relation;
 use samsonphp\event\Event;
-use samsonframework\orm\Relation;
-use samsonphp\event\Event;
 
 /**
  * SamsonCMS generic material application.
