@@ -5,7 +5,6 @@ use samson\activerecord\dbQuery;
 use samson\activerecord\dbRelation;
 use samson\cms\CMSNavMaterial;
 use samson\pager\Pager;
-use samsonframework\orm\Relation;
 use samsonphp\event\Event;
 
 /**

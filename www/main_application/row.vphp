@@ -4,6 +4,6 @@
     </div><div class="item">
         <a href="<?php url_base($moduleId, 'form', $item->id)?>"><?=$item->Name?></a>
 	</div><div class="user">
-		<span class="creator"><?=$user->f_name?> <?=$user->t_name?></span>
+<!--		<span class="creator">--><?//=$user->f_name?><!-- --><?//=$user->t_name?><!--</span>-->
 	</div>
 </div>

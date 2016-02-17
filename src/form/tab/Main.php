@@ -242,7 +242,14 @@ class Main extends \samsoncms\form\tab\Entity
             ->exec();
 
         // Iterate all structures of this material
+        $showSelect = m()->id === 'material';
         foreach ($navs as $db_structure) {
+
+            // If need output structure in select
+            if ($db_structure->applicationOutputStructure == '1') {
+                $showSelect = true;
+            }
+
             // If material is related to current CMSNav
             $selected = '';
             if (in_array($db_structure->id, $structureIDs)) {
@@ -262,7 +269,7 @@ class Main extends \samsoncms\form\tab\Entity
             ->parentSelect($parentSelect)
             ->content($view)
             ->matId($this->entity->id)
-            ->showSelect(m()->id === 'material')
+            ->showSelect($showSelect)
             ->output();
     }
 }
