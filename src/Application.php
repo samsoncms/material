@@ -165,8 +165,8 @@ class Application extends \samsoncms\Application
             $this->title(t('Редактирование', true).' #'.$identifier.' - '.$this->description)
                 ->view('form/index2')
                 ->set($response['entity'], 'entity')    // Pass entity object to view
-                ->set('formContent', $response['form']) // Pass rendered form to view
-                ->set('activeButton', $activeButton)
+                ->set($response['form'], 'formContent') // Pass rendered form to view
+                ->set($activeButton, 'activeButton')
             ;
 
             return true;
@@ -428,7 +428,7 @@ class Application extends \samsoncms\Application
             }
 
             // Render main template
-            $mainPageHTML = $this->view('main/index')->set('rows', $rowsHTML)->output();
+            $mainPageHTML = $this->view('main/index')->set($rowsHTML, 'rows')->output();
         }
 
         // Return material block HTML on main page

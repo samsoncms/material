@@ -267,7 +267,7 @@ class Main extends \samsoncms\form\tab\Entity
             ->view($this->contentView)
             ->nameSelectStructureField($nameSelectStructureField)
             ->parentSelect($parentSelect)
-            ->content($view)
+            ->set($view, 'content')
             ->matId($this->entity->id)
             ->showSelect($showSelect)
             ->output();

@@ -48,9 +48,9 @@ class Navigation extends Generic
         // Render input field view
         return $renderer
             ->view($this->innerView)
-            ->set('class', $this->css)
+            ->set($this->css, 'class')
             ->set($object, 'item')
-            ->set('navigation', implode(', ', $html))
+            ->set(implode(', ', $html), 'navigation')
             ->output();
     }
 }
