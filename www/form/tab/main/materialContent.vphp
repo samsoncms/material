@@ -1,8 +1,8 @@
 <div class="template-form">
 
-    <?php iv('content') ?>
+    <?= $content ?>
 
-    <?php if ($showSelect): ?>
+    <?php if (isset($showSelect)): ?>
     <div class="template-form-input-group select-structure-wrapper">
         <div class="form-field-title select-structure-title">
             <span>

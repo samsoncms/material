@@ -44,8 +44,8 @@ class User extends Generic
         // Render input field view
         return $renderer
             ->view($this->innerView)
-            ->set('class', $this->css)
-            ->set('field_html', $html)
+            ->set($this->css, 'class')
+            ->set($html, 'field_html')
             ->output();
     }
 }
