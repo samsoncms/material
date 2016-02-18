@@ -2,7 +2,6 @@
 namespace samsoncms\app\material;
 
 use samson\core\SamsonLocale;
-use samson\cms\CMSField;
 
 /** 
  * @author Egorov Vitaly <egorov@samsonos.com>
@@ -27,7 +26,7 @@ class MaterialFieldLocalizedTab extends FormTab
      * @param \samson\activerecord\field $db_field
      * @param string $locale
      */
-    public function __construct(Form & $form, cmsfield & $db_field, $field_type)
+    public function __construct(Form & $form, & $db_field, $field_type)
     {
         // Set field header name
         $this->name = !empty($db_field->Description) ? $db_field->Description : $db_field->Name;
