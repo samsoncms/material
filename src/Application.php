@@ -7,6 +7,7 @@ use samson\cms\CMSNavMaterial;
 use samson\pager\Pager;
 use samsoncms\api\Material;
 use samsoncms\api\NavigationMaterial;
+use samsonframework\orm\ArgumentInterface;
 use samsonphp\event\Event;
 
 /**
@@ -61,7 +62,7 @@ class Application extends \samsoncms\Application
             if ($param == 'Name' && $object->Url == '') {
                 $object->Url = utf8_translit($object->Name);
             } elseif ($param == 'Url') {
-                if (dbQuery('material')->cond('Url', $object->Url)->cond('MaterialID', $object->MaterialID, Relation::NOT_EQUAL)->first($material)) {
+                if (dbQuery('material')->cond('Url', $object->Url)->cond('MaterialID', $object->MaterialID, ArgumentInterface::NOT_EQUAL)->first($material)) {
                     $object->Url = $previousValue;
                     $response['urlError'] = '<a target="_blank" href="'.url()->build($this->id.'/form/'.$material->id).'">'.t('Материал', true).'</a> '.t('с таким параметром уже существует', true);
                 }
