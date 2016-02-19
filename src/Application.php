@@ -5,6 +5,8 @@ use samson\activerecord\dbQuery;
 use samson\activerecord\dbRelation;
 use samson\cms\CMSNavMaterial;
 use samson\pager\Pager;
+use samsoncms\api\Material;
+use samsoncms\api\NavigationMaterial;
 use samsonphp\event\Event;
 
 /**
@@ -34,6 +36,9 @@ class Application extends \samsoncms\Application
 
     /** @var string Generic material entity form class */
     protected $formClassName = '\samsoncms\app\material\form\Form';
+
+    /** @var array Entity related navigation identifiers */
+    public static $structures = array();
 
     /** Module initialization */
     public function init(array $params = array())
@@ -81,15 +86,15 @@ class Application extends \samsoncms\Application
      * New material entity creation controller action
      * @param int $navigation Parent navigation identifier
      */
-    public function __new($navigation = null)
+    public function __new($navigation = array())
     {
         // Create new entity
-        $entity = new \samson\activerecord\material();
+        $entity = new Material();
         $entity->Active = 1;
         $entity->Created = date('Y-m-d H:m:s');
 
         // Set user
-        $user = m('social')->user();
+        $user = $this->system->module('social')->user();
         $entity->UserID = $user->user_id;
 
         // Persist
@@ -98,29 +103,31 @@ class Application extends \samsoncms\Application
         // Set name for created material
         $entity->Name = t($this->name, true).' №'.$entity->id;
         $entity->Url = utf8_translit($entity->Name);
+
         // Check unique url for material
-        if (dbQuery('material')->cond('Url', utf8_translit($entity->Name))->first()) {
+        if ($this->query->entity(Material::class)->where(Material::F_IDENTIFIER, utf8_translit($entity->Name))->first()) {
             $entity->Url = md5(utf8_translit($entity->Name));
         }
 
         // Persist
         $entity->save();
 
-		
-        Event::fire('samsoncms.app.material.new', array(& $entity));
+        Event::fire('samsoncms.app.material.new', array(&$entity));
+
+        $navigation = is_array($navigation) ? $navigation : array($navigation);
 
         // Set navigation relation
-        if (isset($navigation)) {
+        foreach (array_merge($navigation, static::$structures) as $structureID) {
             // Create relation with structure
-            $structureMaterial = new \samson\activerecord\structurematerial();
+            $structureMaterial = new NavigationMaterial();
             $structureMaterial->MaterialID = $entity->id;
-            $structureMaterial->StructureID = $navigation;
+            $structureMaterial->StructureID = $structureID;
             $structureMaterial->Active = '1';
             $structureMaterial->save();
         }
 
         // Go to correct form URL
-        url()->redirect('cms/' . $this->id . '/form/' . $entity->id);
+        url()->redirect($this->system->module('cms')->baseUrl . '/' . $this->id . '/form/' . $entity->id);
     }
 
     /**
