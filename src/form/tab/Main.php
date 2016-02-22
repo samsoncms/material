@@ -8,6 +8,7 @@
 namespace samsoncms\app\material\form\tab;
 
 use samson\activerecord\materialfield;
+use samsoncms\app\material\field\Url;
 use samsoncms\form\field\Generic;
 use samsonframework\core\RenderInterface;
 use samsonframework\orm\QueryInterface;
@@ -184,7 +185,7 @@ class Main extends \samsoncms\form\tab\Entity
         // Add generic material entity fields
         $this->fields = array(
             new Generic('Name', t('Название', true), 0),
-            new Generic('Url', t('Url', true), 12),
+            new Url('Url', t('Url', true), 12),
         );
 
         // Call parent constructor to define all class fields

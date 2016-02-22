@@ -1,0 +1,3 @@
+<div class="form-field-title">
+    <span><?php v('field');?></span> <a href="<?php module_url('generateurl') ?>" class="generate-material-url-link" title="<?php t('Сгенерировать') ?>"><i class="icon2 icon2-refresh"></i></a>
+</div>
