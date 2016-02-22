@@ -70,3 +70,34 @@ function updateSelect(){
         });
     }, timeout);
 }
+
+s('.generate-material-url-link').pageInit(function(link) {
+    var href = link.a('href');
+    link.a('href', href + s('#entityId').val() + '/');
+    link.ajaxClick(function(response) {
+        var field = s('.__inputfield.__unique_url');
+        var parent = field.parent();
+        if (response.urlError != undefined) {
+            var error;
+            if (parent.next().length && parent.next().hasClass('template-form-error')) {
+                error = parent.next();
+                error.html(response.urlError);
+            } else {
+                error = s('<div class="template-form-error">' + response.urlError  + '</div>');
+            }
+            parent.css('border-color', 'red');
+            parent.parent().append(error);
+        } else {
+            if (parent.next().length && parent.next().hasClass('template-form-error')) {
+                parent.next().remove();
+            }
+            parent.css('border-color', 'black');
+            field.removeClass('__empty');
+            if (response.createdUrl.length) {
+                s('span', parent).html(response.createdUrl);
+                s('.__hidden', parent).val(response.createdUrl);
+                s('.__input', parent).val(response.createdUrl);
+            }
+        }
+    });
+});

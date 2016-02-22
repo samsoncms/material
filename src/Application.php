@@ -62,12 +62,29 @@ class Application extends \samsoncms\Application
             if ($param == 'Name' && $object->Url == '') {
                 $object->Url = utf8_translit($object->Name);
             } elseif ($param == 'Url') {
-                if (dbQuery('material')->cond('Url', $object->Url)->cond('MaterialID', $object->MaterialID, ArgumentInterface::NOT_EQUAL)->first($material)) {
+                if ($this->query->entity('material')->where('Url', $object->Url)->where('MaterialID', $object->MaterialID, ArgumentInterface::NOT_EQUAL)->first($material)) {
                     $object->Url = $previousValue;
                     $response['urlError'] = '<a target="_blank" href="'.url()->build($this->id.'/form/'.$material->id).'">'.t('Материал', true).'</a> '.t('с таким параметром уже существует', true);
                 }
             }
         }
+    }
+
+    public function __async_generateurl($id)
+    {
+        $response = array('status' => 1);
+        /** @var \samson\activerecord\material $material */
+        $material = null;
+        if ($this->query->entity('\samson\activerecord\material')->where('MaterialID', $id)->first($material)) {
+            if ($this->query->entity('\samson\activerecord\material')->where('Url', $material->Url)->where('MaterialID', $material->MaterialID, ArgumentInterface::NOT_EQUAL)->first($existedMaterial)) {
+                $response['urlError'] = '<a target="_blank" href="'.url()->build($this->id.'/form/'.$existedMaterial->id).'">'.t('Материал', true).'</a> '.t('с таким параметром уже существует', true);
+            } else {
+                $material->Url = utf8_translit($material->Name);
+                $material->save();
+                $response['createdUrl'] = $material->Url;
+            }
+        }
+        return $response;
     }
 
     /**
