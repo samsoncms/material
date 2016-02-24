@@ -55,7 +55,7 @@ class Application extends \samsoncms\Application
      * @param string $previousValue Previous object field value
      * @param string $response Response
      */
-    public function inputUpdateHandler(& $object, $param, $previousValue, $response = null)
+    public function inputUpdateHandler(&$object, $param, $previousValue, &$response)
     {
         // If current object is material and we change parameter Name, then change objects Url too if it is empty
         if ($object instanceof \samson\activerecord\material) {
