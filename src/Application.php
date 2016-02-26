@@ -231,7 +231,7 @@ class Application extends \samsoncms\Application
 
         // Set filtration info
         $navigationId = isset($navigationId) ? $navigationId : '0';
-        $search = !empty($search) ? $search : 0;
+        $search = !empty($search) ? urldecode($search) : 0;
         $page = isset($page) ? $page : 1;
 
 
@@ -251,9 +251,10 @@ class Application extends \samsoncms\Application
         }
 
         return array_merge(
-            array('status' => 1, 'rowsCount' => $collection->fill()->getSize()),
+            array('status' => 1, 'rowsCount' => $collection->search($search)->fill()->getSize()),
             $collection
                 ->search($search)
+				->fill()
                 ->toView(self::VIEW_TABLE_NAME . '_')
         );
     }
