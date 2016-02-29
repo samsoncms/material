@@ -55,14 +55,14 @@ class Application extends \samsoncms\Application
      * @param string $previousValue Previous object field value
      * @param string $response Response
      */
-    public function inputUpdateHandler(& $object, $param, $previousValue, $response = null)
+    public function inputUpdateHandler(&$object, $param, $previousValue, &$response)
     {
         // If current object is material and we change parameter Name, then change objects Url too if it is empty
         if ($object instanceof \samson\activerecord\material) {
             if ($param == 'Name' && $object->Url == '') {
                 $object->Url = utf8_translit($object->Name);
             } elseif ($param == 'Url') {
-                if ($this->query->entity('material')->where('Url', $object->Url)->where('MaterialID', $object->MaterialID, ArgumentInterface::NOT_EQUAL)->first($material)) {
+                if ($this->query->entity(\samson\activerecord\material::class)->where('Url', $object->Url)->where('MaterialID', $object->MaterialID, ArgumentInterface::NOT_EQUAL)->first($material)) {
                     $object->Url = $previousValue;
                     $response['urlError'] = '<a target="_blank" href="'.url()->build($this->id.'/form/'.$material->id).'">'.t('Материал', true).'</a> '.t('с таким параметром уже существует', true);
                 }
