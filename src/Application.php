@@ -344,7 +344,7 @@ class Application extends \samsoncms\Application
      */
     public function __async_removeentity($materialId)
     {
-        return $this->__async_remove();
+        return $this->__async_remove($materialId);
     }
 
     /**
