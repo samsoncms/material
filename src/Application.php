@@ -325,16 +325,26 @@ class Application extends \samsoncms\Application
         $result = array('status' => false);
 
         // Call default async action
-        if ($this->findAsyncEntityByID($materialId, $material, $result)) {
+        if ($this->findAsyncEntityByID($materialId, $material, $result, '\samsoncms\api\Material')) {
             // Mark material as deleted
-            $material->Active = 0;
-
-            // Save changes to DB
-            $material->save();
+            $material->remove();
+            return $this->__async_collection();
         }
 
         // Return asynchronous result
         return $result;
+    }
+
+    /**
+     * Delete material
+     *
+     * @param mixed $materialId Pointer to material object or material identifier
+     * @return array Operation result data
+     * @deprecated use __async_remove
+     */
+    public function __async_removeentity($materialId)
+    {
+        return $this->__async_remove();
     }
 
     /**
