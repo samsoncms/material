@@ -397,19 +397,22 @@ class Application extends \samsoncms\Application
     /**
      * Controller to output csv file of all materials for structure
      * @var $structure
-     * @var $delimiter
-     * @var $enclosure
+     * @var string $delimiter Export file delimiter
+     * @var string $fileName Export file name
      */
-    public function tocsv($collection, $delimiter = ',', $enclosure = '"')
+    public function tocsv($collection, $fileName = null, $delimiter = ';')
     {
         s()->async(true);
 
         ini_set('memory_limit', '2048M');
 
+        // Set passed file name or generate it
+        $fileName = $fileName ?: 'Export' . date('dmY') . '.csv';
+
         // Output file from browser
         header('Content-Description: File Transfer');
         header('Content-Type: application/vnd.ms-excel; charset=utf-8');
-        header('Content-Disposition: attachment; filename=Export'.date('dmY').'.csv');
+        header('Content-Disposition: attachment; filename=' . $fileName);
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Pragma: public');
@@ -418,7 +421,7 @@ class Application extends \samsoncms\Application
         $handle = fopen('php://temp', 'r+');
         //fputs($handle, chr(0xEF) . chr(0xBB) . chr(0xBF)); // UTF-8 BOM
         foreach ($collection->toArray() as $line) {
-            fputcsv($handle, $line, ';');
+            fputcsv($handle, $line, $delimiter);
         }
 
         // Read file from temp
