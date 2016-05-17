@@ -101,7 +101,7 @@ class Application extends \samsoncms\Application
     }
 
     /**
-     * Universal controller action.Entity collection rendering.
+     * Controller to rendering specific collection
      *
      * @param string $navigationId Navigation filter
      * @param string $search Search filter
