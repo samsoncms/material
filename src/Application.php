@@ -101,6 +101,19 @@ class Application extends \samsoncms\Application
     }
 
     /**
+     * Universal controller action.Entity collection rendering.
+     *
+     * @param string $navigationId Navigation filter
+     * @param string $search Search filter
+     * @param int $page Current page
+     */
+    public function __collection($navigationId = '0', $search = '', $page = 1)
+    {
+        // Pass all parameters to parent handler with default values
+        parent::__handler($navigationId, $search, $page);
+    }
+
+    /**
      * New material entity creation controller action
      * @param int $navigation Parent navigation identifier
      */
@@ -210,7 +223,7 @@ class Application extends \samsoncms\Application
      * @return array Asynchronous response containing status and materials list with pager on success
      * or just status on asynchronous controller failure
      */
-    public function __async_collection($navigationId = '0', $search = '', $page = 1)
+    public function __async_collection($navigationId = '0', $search = '0', $page = 1)
     {
         // Save pager size in session
         if (isset($_GET['pagerSize'])) {
@@ -221,11 +234,8 @@ class Application extends \samsoncms\Application
 
         // Save search filter
         if (isset($_GET['search'])) {
-
             $_SESSION['search'] = $_GET['search'];
-
             $search = $_GET['search'];
-
             unset($_GET['search']);
         }
 
@@ -238,8 +248,7 @@ class Application extends \samsoncms\Application
         // Create pager for material collection
         $pager = new Pager(
             $page,
-            isset($_SESSION['pagerSize']) ? $_SESSION['pagerSize'] : $this->pageSize,
-            $this->id . '/' . self::VIEW_TABLE_NAME . '/' . $navigationId . '/' . $search
+            isset($_SESSION['pagerSize']) ? $_SESSION['pagerSize'] : $this->pageSize, $this->id . '/' . self::VIEW_TABLE_NAME . '/' . $navigationId . '/' . $search
         );
 
         // Create material collection
@@ -251,7 +260,13 @@ class Application extends \samsoncms\Application
         }
 
         return array_merge(
-            array('status' => 1, 'rowsCount' => $collection->search($search)->fill()->getSize()),
+            array(
+                'status' => true,
+                'navigationId' => $navigationId,
+                'searchQuery' => $search,
+                'pageNumber' => $page,
+                'rowsCount' => $collection->search($search)->fill()->getSize()
+            ),
             $collection
                 ->search($search)
 				->fill()
