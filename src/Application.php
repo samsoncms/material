@@ -126,7 +126,13 @@ class Application extends \samsoncms\Application
 
         // Set user
         $user = $this->system->module('social')->user();
-        $entity->UserID = $user->user_id;
+
+        if (isset($user->user_id)) {
+            $entity->UserID = $user->user_id;
+        }
+        else {
+            $entity->UserID = '1';
+        }
 
         // Persist
         $entity->save();
