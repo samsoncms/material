@@ -233,15 +233,15 @@ class Application extends \samsoncms\Application
     {
         // Save pager size in session
         if (isset($_GET['pagerSize'])) {
-            $_SESSION['pagerSize'] = $_GET['pagerSize'];
+            $_SESSION['pagerSize'] = str_replace('/', '', $_GET['pagerSize']);
             // delete get parameter from pager links
             unset($_GET['pagerSize']);
         }
 
         // Save search filter
         if (isset($_GET['search'])) {
-            $_SESSION['search'] = $_GET['search'];
-            $search = $_GET['search'];
+            $_SESSION['search'] = str_replace('/', '', $_GET['search']);
+            $search = str_replace('/', '', $_GET['search']);
             unset($_GET['search']);
         }
 
