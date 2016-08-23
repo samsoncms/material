@@ -4,7 +4,7 @@ namespace samson\cms\web\material;
 use samson\activerecord\Argument;
 use samson\activerecord\Condition;
 use samson\activerecord\dbRelation;
-use samson\cms\Navigation;
+use samsoncms\api\Navigation;
 use samson\pager\pager;
 use samson\activerecord\dbMySQLConnector;
 

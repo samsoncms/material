@@ -5,11 +5,8 @@
  * Date: 05.06.2015
  * Time: 15:15
  */
-
 namespace samsoncms\app\material\form\tab;
 
-
-use samsoncms\api\MaterialField;
 use samson\core\SamsonLocale;
 use samsoncms\form\tab\Generic;
 use samsonframework\core\RenderInterface;

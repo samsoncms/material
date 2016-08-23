@@ -9,9 +9,9 @@
         <input type="hidden" id="appName" value="<?php echo m()->id; ?>">
 		<input type="hidden" name="iehack" value="&#9760;" />
 		<input type="hidden" name="MaterialID" id="MaterialID" value="<?php v('cmsmaterial_id'); ?>">
-		<input type="hidden" name="Draft" id="Draft" value="<?php v('cmsmaterial_Draft'); ?>">	
+		<input type="hidden" name="Draft" id="Draft" value="<?php v('cmsmaterial_Draft'); ?>">
 		<input type="hidden" name="UserID" id="UserID" value="<?php v('cmsmaterial_UserID'); ?>">
-		<input type="hidden" name="Created" id="Created" value="<?php v('cmsmaterial_Created'); ?>">			
+		<input type="hidden" name="Created" id="Created" value="<?php v('cmsmaterial_Created'); ?>">
 		
 		<!-- Form tabs -->
 		<div id="material-tabs" class="samsonjstabs">	
