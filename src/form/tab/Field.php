@@ -27,7 +27,7 @@ class Field extends Generic
     {
         $this->name = t($this->name, true);
         $this->show = false;
-        $entity = dbQuery('\samson\cms\CMSMaterial')
+        $entity = dbQuery('\samsoncms\api\Material')
             ->cond('MaterialID', $entity->id)
             ->join('structurematerial')
             ->join('structure')
