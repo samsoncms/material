@@ -5,13 +5,9 @@
  * Date: 05.06.2015
  * Time: 15:27
  */
-
 namespace samsoncms\app\material\form\tab;
 
-
 use samson\activerecord\dbQuery;
-use samsoncms\api\MaterialField;
-use samson\core\SamsonLocale;
 use samsoncms\form\tab\Generic;
 use samsonframework\core\RenderInterface;
 use samsonframework\orm\QueryInterface;
@@ -37,7 +33,7 @@ class MaterialFieldLocalized extends Generic
      * @param MaterialField $materialField
      * @param string $locale
      */
-    public function __construct(RenderInterface $renderer, QueryInterface $query, Record $entity, MaterialField $materialField, $locale = null)
+    public function __construct(RenderInterface $renderer, QueryInterface $query, Record $entity, \samsoncms\api\MaterialField $materialField, $locale = null)
     {
         // Get type of filed
         $field = dbQuery('field')->cond('FieldID', $materialField->FieldID)->first();
