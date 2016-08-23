@@ -465,7 +465,7 @@ class Application extends \samsoncms\Application
 
         // Получим все материалы
         if (
-        dbQuery('samson\cms\cmsmaterial')
+        dbQuery('samsoncms\api\Material')
             ->join('user')
             ->cond('Active', 1)
             ->cond('Draft', 0)

@@ -22,10 +22,10 @@ class FieldTabTable extends \samson\cms\table\Table
     /** Default table row template */
     public $row_tmpl = 'form/fieldtable/row/index';
 
-    /** Existing CMSMaterial field records */
+    /** Existing Material field records */
     private $materialfields = array();
 
-    /** Pointer to CMSMaterial */
+    /** Pointer to Material */
     private $db_material;
 
     /** Fields locale */
@@ -37,16 +37,16 @@ class FieldTabTable extends \samson\cms\table\Table
 
     /**
      * Constructor
-     * @param \samson\cms\CMSMaterial $db_material CMSMaterial pointer
+     * @param \samsoncms\api\Material $db_material Material pointer
      * @param string $locale Field table locale
      */
-    public function __construct(\samson\cms\CMSMaterial & $db_material, $navs, $locale = SamsonLocale::DEF)
+    public function __construct(\samsoncms\api\Material & $db_material, $navs, $locale = SamsonLocale::DEF)
     {
         $this->locale = $locale;
 
         $this->dbQuery = new dbQuery();
 
-        // Save pointer to CMSMaterial
+        // Save pointer to Material
         $this->db_material = &$db_material;
 
         // Prepare db query for all related material fields to structures

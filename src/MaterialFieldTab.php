@@ -3,7 +3,7 @@
 namespace samsoncms\app\material;
 
 use samson\activerecord\dbQuery;
-use samson\cms\CMSMaterialField;
+use samsoncms\api\MaterialField;
 
 /** 
  * @author Egorov Vitaly <egorov@samsonos.com>
@@ -26,9 +26,9 @@ class MaterialFieldTab extends FormTab
     protected $cmsfield;
 
     /**
-     * CMSMaterialField DB object pointer
-     * @var CMSMaterialField
-     * @see \samson\cms\CMSMaterialField
+     * MaterialField DB object pointer
+     * @var MaterialField
+     * @see \samsoncms\api\MaterialField
      */
     protected $db_mf;
 
@@ -36,13 +36,13 @@ class MaterialFieldTab extends FormTab
      * Constructor
      * @param Form $form
      * @param FormTab $parent
-     * @param CMSMaterialField $db_mf
+     * @param MaterialField $db_mf
      * @param string $locale
      * @param string $field_type
      */
-    public function __construct(Form & $form, FormTab & $parent, CMSMaterialField & $db_mf, $locale = null, $field_type = 'WYSIWYG')
+    public function __construct(Form & $form, FormTab & $parent, MaterialField & $db_mf, $locale = null, $field_type = 'WYSIWYG')
     {
-        // Create CMS Field object from CMSMaterialField object
+        // Create CMS Field object from MaterialField object
         $this->cmsfield = m('samsoncms_input_wysiwyg_application')->createField(new dbQuery(), $db_mf);
 
         // Save tab header name as locale name
@@ -51,7 +51,7 @@ class MaterialFieldTab extends FormTab
         // Generate unique html identifier
         $this->id = utf8_translit($parent->name) . '_' . $this->name . '_tab';
 
-        // Save pointers to database CMSMaterialField object
+        // Save pointers to database MaterialField object
         $this->db_mf = &$db_mf;
 
         // Call parent

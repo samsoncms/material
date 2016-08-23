@@ -10,7 +10,7 @@ namespace samsoncms\app\material\form\tab;
 
 
 use samson\activerecord\dbQuery;
-use samson\cms\CMSMaterialField;
+use samsoncms\api\MaterialField;
 use samson\core\SamsonLocale;
 use samsoncms\form\tab\Generic;
 use samsonframework\core\RenderInterface;
@@ -34,15 +34,15 @@ class MaterialFieldLocalized extends Generic
      * @param RenderInterface $renderer
      * @param QueryInterface $query
      * @param Record $entity
-     * @param CMSMaterialField $materialField
+     * @param MaterialField $materialField
      * @param string $locale
      */
-    public function __construct(RenderInterface $renderer, QueryInterface $query, Record $entity, CMSMaterialField $materialField, $locale = null)
+    public function __construct(RenderInterface $renderer, QueryInterface $query, Record $entity, MaterialField $materialField, $locale = null)
     {
         // Get type of filed
         $field = dbQuery('field')->cond('FieldID', $materialField->FieldID)->first();
 
-        // Create CMS Field object from CMSMaterialField object
+        // Create CMS Field object from MaterialField object
         $this->inputField = m('samsoncms_input_application')->createFieldByType(new dbQuery(), $field->Type, $materialField);
 
         // Save tab header name as locale name

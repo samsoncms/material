@@ -9,7 +9,7 @@
 namespace samsoncms\app\material\form\tab;
 
 
-use samson\cms\CMSMaterialField;
+use samsoncms\api\MaterialField;
 use samson\core\SamsonLocale;
 use samsoncms\form\tab\Generic;
 use samsonframework\core\RenderInterface;
@@ -35,21 +35,21 @@ class MaterialField extends Generic
         // If field supports localization - set full locales array
         if ($field->local == 1) $locales = SamsonLocale::$locales;
 
-        /** @var CMSMaterialField $materialField */
+        /** @var MaterialField $materialField */
         $materialField = null;
 
         // Iterate defined locales
         if (sizeof(SamsonLocale::$locales)){
             foreach ($locales as $locale) {
-                // Try to find existing CMSMaterialField record
-                if (!dbQuery('\samson\cms\CMSMaterialField')
+                // Try to find existing MaterialField record
+                if (!dbQuery('\samsoncms\api\MaterialField')
                     ->MaterialID($entity->id)
                     ->FieldID($field->id)
                     ->locale($locale)
                     ->first($materialField)
                 ) {
-                    // Create CMSMaterialField record
-                    $materialField = new \samson\cms\CMSMaterialField(false);
+                    // Create MaterialField record
+                    $materialField = new \samsoncms\api\MaterialField(false);
                     $materialField->Active = 1;
                     $materialField->MaterialID = $entity->id;
                     $materialField->FieldID = $field->id;
