@@ -44,15 +44,15 @@ class MaterialFieldLocalizedTab extends FormTab
 
         // Iterate defined locales
         if (sizeof(SamsonLocale::$locales)) foreach ($locales as $locale) {
-            // Try to find existing CMSMaterialField record
-            if (!dbQuery('\samson\cms\CMSMaterialField')
+            // Try to find existing MaterialField record
+            if (!dbQuery('\samsoncms\api\MaterialField')
                 ->MaterialID($form->material->id)
                 ->FieldID($db_field->id)
                 ->locale($locale)
                 ->first($db_mf)
             ) {
-                // Create CMSMaterialField record
-                $db_mf = new \samson\cms\CMSMaterialField(false);
+                // Create MaterialField record
+                $db_mf = new \samsoncms\api\MaterialField(false);
                 $db_mf->Active = 1;
                 $db_mf->MaterialID = $this->form->material->id;
                 $db_mf->FieldID = $db_field->id;

@@ -5,7 +5,7 @@ namespace samsoncms\app\material;
 use samson\cms\CMSNav;
 use samson\activerecord\dbRecord;
 /**
- * Main CMSMaterial form tab
+ * Main Material form tab
  * 
  * @author Kotenko Nikita <nick.w2r@gmail.com>
  * @author Egorov Vitaly <egorov@samsonos.com>

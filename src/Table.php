@@ -4,7 +4,7 @@ namespace samson\cms\web\material;
 use samson\activerecord\Argument;
 use samson\activerecord\Condition;
 use samson\activerecord\dbRelation;
-use samson\cms\Navigation;
+use samsoncms\api\Navigation;
 use samson\pager\pager;
 use samson\activerecord\dbMySQLConnector;
 
@@ -146,7 +146,7 @@ class Table extends \samson\cms\table\Table
     public function beforeHandler() {
         $ids = $this->query->fields('MaterialID');
 
-        $this->query = dbQuery('\samson\cms\material')
+        $this->query = dbQuery('\samsoncms\api\Material')
             ->join('user')
             ->join('structurematerial')
             ->join('structure');
@@ -182,7 +182,7 @@ class Table extends \samson\cms\table\Table
 
         // Render row template
         return $renderer
-            ->cmsmaterial($material)
+            ->Material($material)
             ->user(isset($material->onetoone['_user']) ? $material->onetoone['_user'] : '')
             ->pager($this->pager)
             ->nav_id(isset($this->nav) ? $this->nav->id : '0')

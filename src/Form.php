@@ -4,13 +4,13 @@ namespace samsoncms\app\material;
 use samson\activerecord\Condition;
 use samson\core\SamsonLocale;
 use samson\activerecord\dbRelation;
-use samson\cms\CMSMaterial;
+use samsoncms\api\Material;
 use samson\activerecord\dbMySQL;
 use samson\activerecord\dbMySQLConnector;
 use samsonframework\orm\Argument;
 
 /**
- * CMSMaterial form 
+ * Material form
  * 
  * @author Kotenko Nikita <nick.w2r@gmail.com>
  * @author Egorov Vitaly <egorov@samsonos.com>
@@ -18,8 +18,8 @@ use samsonframework\orm\Argument;
 class Form
 {
     /**
-     * Pointer to CMSMaterial object
-     * @var \samson\cms\CMSMaterial
+     * Pointer to Material object
+     * @var \samsoncms\api\Material
      */
     public $material;
 
@@ -36,8 +36,8 @@ class Form
     public $fields = array();
 
     /**
-     * Collection of CMSMaterialField releted to material
-     * @see \samson\cms\CMSMaterialField
+     * Collection of MaterialField releted to material
+     * @see \samsoncms\api\MaterialField
      */
     public $mfs = array();
 
@@ -55,7 +55,7 @@ class Form
 
     /**
      * Constructor
-     * @param string $material_id CMSMaterial identifier
+     * @param string $material_id Material identifier
      */
     public function __construct($material_id = null, $parentStructure = null)
     {
@@ -66,8 +66,8 @@ class Form
         $scg->arguments[] = new Argument(dbMySQLConnector::$prefix . 'structurematerial_Active', 1);
         $scg->arguments[] = new Argument(dbMySQLConnector::$prefix . 'structurematerial_Active', NULL, dbRelation::ISNULL);
 
-        // Perform CMSMaterial request with related CMSNavs
-        if (dbQuery(ns_classname('CMSMaterial', 'samson\cms'))
+        // Perform Material request with related CMSNavs
+        if (dbQuery(ns_classname('Material', 'samson\cms'))
             ->MaterialID($material_id)
             ->join('structurematerial')
             ->join('structure')
@@ -119,7 +119,7 @@ class Form
         // Material does not found
         else {
             // Material empty draft creation
-            $this->material = new CMSMaterial();
+            $this->material = new Material();
             $this->material->Draft = $this->material->id;
             $this->material->Name = 'Новый материал';
             $this->material->Created = date('h:m:i d.m.y');
@@ -160,7 +160,7 @@ class Form
         usort($this->tabs, array($this, 'tabs_sorter'));
     }
 
-    /** Render CMSMaterial form to HTML */
+    /** Render Material form to HTML */
     public function render()
     {
         $tabs_html = '';
@@ -179,7 +179,7 @@ class Form
         return m()
             ->title(t('Форма', true))
             ->view('form/index')
-            ->cmsmaterial($this->material)
+            ->Material($this->material)
             ->tabs($tabs_html)
             ->tabs_control($tabs_control)
             ->tabs_headers($tabs_header)

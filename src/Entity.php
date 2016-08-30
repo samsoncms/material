@@ -11,7 +11,7 @@ namespace samsoncms\app\material;
  * Material entity
  * @package samsoncms\app\material
  */
-class Entity extends \samson\cms\Material
+class Entity extends \samsoncms\api\Material
 {
     /**
      * Find material record by identifier

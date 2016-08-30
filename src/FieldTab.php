@@ -16,7 +16,7 @@ class FieldTab extends FormTab
 	private $content_view = 'form/tab/content/fields';
 		
 	/**
-	 * CMSMaterial fields table
+	 * Material fields table
 	 * @var FormFieldTable
 	 */
 	protected $field_table;
@@ -40,7 +40,7 @@ class FieldTab extends FormTab
 		// Add locale to identifier
 		$this->id = $parent->id.($locale == '' ? '' : '-'.$locale);
 
-		// Set pointer to CMSMaterial 
+		// Set pointer to Material
 		$material = & $form->material;		
 		
 		// If material has no related CMSNavs  - Disable tab rendering

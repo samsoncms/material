@@ -16,7 +16,7 @@
     "samsonos/cms_input_url": "*",
     "samsonos/js_translit":"*",
     "samsonos/js_fixedheader":"*",
-    "samsonos/cms_api":"*",
+    "samsoncms/api":"*",
     "samsonos/cms_table":"*"
   },
   "require-dev": {
@@ -25,7 +25,6 @@
     "behat/mink-extension": "@stable",
     "behat/mink-selenium2-driver": "@stable"
   },
-  "minimum-stability": "dev",
   "license": "Open Software License (OSL) v 3.0",
   "homepage": "http://samsonos.com/",
   "autoload": {
