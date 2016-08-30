@@ -184,7 +184,8 @@ class Application extends \samsoncms\Application
     public function __async_addnav($materialId = null, $navigation = null)
     {
         // Save record
-        $sm = new CMSNavMaterial(false);
+//        $sm = new CMSNavMaterial(false);
+        $sm = new NavigationMaterial();
         $sm->MaterialID = $materialId;
         $sm->StructureID = $navigation;
         $sm->Active = '1';
