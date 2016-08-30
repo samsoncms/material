@@ -1,7 +1,7 @@
 <?php
 namespace samsoncms\app\material;
 
-use samson\core\iModuleViewable;
+use samsonframework\core\RenderInterface;
 
 /**
  * Form tab class
@@ -9,7 +9,7 @@ use samson\core\iModuleViewable;
  * @author Kotenko Nikita <nick.w2r@gmail.com>
  * @author Egorov Vitaly <egorov@samsonos.com>
  */
-class FormTab implements iModuleViewable
+class FormTab implements RenderInterface
 {
     /** Meta static variable to disable default form rendering */
     public static $AUTO_RENDER = true;
@@ -74,7 +74,7 @@ class FormTab implements iModuleViewable
         $this->tabs[] = $this;
     }
 
-    /** @see \samson\core\iModuleViewable::toView() */
+    /** @see RenderInterface::toView() */
     public function toView($prefix = null, array $restricted = array())
     {
         // Prepare tab fields as array
