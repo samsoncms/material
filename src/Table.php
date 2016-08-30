@@ -6,7 +6,7 @@ use samson\activerecord\Condition;
 use samson\activerecord\dbRelation;
 use samsoncms\api\Navigation;
 use samson\pager\pager;
-use samson\activerecord\dbMySQLConnector;
+use samsoncms\api\NavigationMaterial;
 
 /**
  * Class for dislaying and interactiong with SamsonCMS materials table
@@ -117,7 +117,7 @@ class Table extends \samson\cms\table\Table
 
         // Perform query by structure-material and get material ids
         $ids = array();
-        if (isset($nav) && dbQuery('samson\cms\CMSNavMaterial')
+        if (isset($nav) && dbQuery(NavigationMaterial::class)
                 ->cond('StructureID', $nav->id)
                 ->cond('Active', 1)->fields('MaterialID', $ids)) {
             // Set corresponding material ids related to specified navigation
