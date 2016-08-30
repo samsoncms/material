@@ -3,7 +3,6 @@ namespace samsoncms\app\material;
 
 use samson\activerecord\dbQuery;
 use samson\activerecord\dbRelation;
-use samson\cms\CMSNavMaterial;
 use samson\pager\Pager;
 use samsoncms\api\Material;
 use samsoncms\api\NavigationMaterial;
