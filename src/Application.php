@@ -258,7 +258,7 @@ class Application extends \samsoncms\Application
         );
 
         // Create material collection
-        $collection = new $this->collectionClass($this, new dbQuery(), $pager);
+        $collection = new $this->collectionClass($this, $this->query, $pager);
 
         // Add navigation filter
         if (isset($navigationId) && !empty($navigationId)) {
