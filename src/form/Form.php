@@ -76,8 +76,9 @@ class Form extends \samsoncms\form\Form
 
         parent::__construct($renderer, $query, $entity);
 
+        $formObj = &$this;
         // Fire new event after creating form tabs
-        Event::fire('samsoncms.material.form.created', array(& $this, $renderer, $query, $entity));
+        Event::fire('samsoncms.material.form.created', array(& $formObj, $renderer, $query, $entity));
 
         // Set old locales
         \samson\core\SamsonLocale::$locales = $locales;
